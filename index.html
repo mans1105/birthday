@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000" id="theme-color-meta">
+    <title>⏰ Time Bomb Countdown</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button id="sound-fallback-btn" class="sound-fallback-btn" onclick="window.__activateBombAudio && window.__activateBombAudio()">
+        🔊
+    </button>
+
+    <!-- ============================================================
+         SECTION 1: TIME BOMB COUNTDOWN (tampil pertama)
+         ============================================================ -->
+    <section id="timer-section" class="screen is-active">
+        <div class="bomb-stage">
+            <div class="bomb-visual" id="bomb-visual">
+                <svg viewBox="0 0 380 280" class="bomb-svg" id="bomb-svg" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <linearGradient id="tntTop" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#c8455f"/>
+                            <stop offset="45%" stop-color="#a82d48"/>
+                            <stop offset="100%" stop-color="#7a1f38"/>
+                        </linearGradient>
+                        <linearGradient id="tntMid" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#b8364f"/>
+                            <stop offset="45%" stop-color="#962742"/>
+                            <stop offset="100%" stop-color="#6a1a30"/>
+                        </linearGradient>
+                        <linearGradient id="tntBot" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#a82d48"/>
+                            <stop offset="45%" stop-color="#86223a"/>
+                            <stop offset="100%" stop-color="#5a1628"/>
+                        </linearGradient>
+                        <linearGradient id="strapGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#4a4a72"/>
+                            <stop offset="100%" stop-color="#2a2a46"/>
+                        </linearGradient>
+                        <radialGradient id="screenGlow" cx="50%" cy="50%" r="75%">
+                            <stop offset="0%" stop-color="#2a5a3a"/>
+                            <stop offset="100%" stop-color="#0f2818"/>
+                        </radialGradient>
+                    </defs>
+
+                    <g id="fuse-group">
+                        <path d="M190 8 C 168 -10, 215 -22, 198 -38 C 184 -50, 220 -58, 232 -72"
+                              fill="none" stroke="#d8c89a" stroke-width="9" stroke-linecap="round" id="fuse-path"/>
+                        <circle cx="232" cy="-72" r="6" fill="#ffd966" id="fuse-spark"/>
+                        <circle cx="232" cy="-72" r="11" fill="#ff8c00" opacity="0.55" id="fuse-spark-glow"/>
+                    </g>
+
+                    <rect x="40" y="14" width="300" height="62" rx="3" fill="url(#tntTop)" stroke="#1a0a10" stroke-width="4"/>
+                    <rect x="40" y="14" width="300" height="10" fill="#ffffff" opacity="0.12"/>
+                    <line x1="64" y1="14" x2="64" y2="76" stroke="#5a1628" stroke-width="3" opacity="0.7"/>
+                    <line x1="316" y1="14" x2="316" y2="76" stroke="#5a1628" stroke-width="3" opacity="0.7"/>
+
+                    <rect x="40" y="82" width="300" height="62" rx="3" fill="url(#tntMid)" stroke="#1a0a10" stroke-width="4"/>
+                    <rect x="40" y="82" width="300" height="8" fill="#ffffff" opacity="0.08"/>
+                    <line x1="64" y1="82" x2="64" y2="144" stroke="#4a1422" stroke-width="3" opacity="0.7"/>
+                    <line x1="316" y1="82" x2="316" y2="144" stroke="#4a1422" stroke-width="3" opacity="0.7"/>
+
+                    <rect x="40" y="150" width="300" height="62" rx="3" fill="url(#tntBot)" stroke="#1a0a10" stroke-width="4"/>
+                    <rect x="40" y="150" width="300" height="7" fill="#ffffff" opacity="0.06"/>
+                    <line x1="64" y1="150" x2="64" y2="212" stroke="#3a1018" stroke-width="3" opacity="0.7"/>
+                    <line x1="316" y1="150" x2="316" y2="212" stroke="#3a1018" stroke-width="3" opacity="0.7"/>
+
+                    <rect x="40" y="70" width="300" height="16" fill="url(#strapGrad)" stroke="#15151f" stroke-width="3"/>
+                    <rect x="40" y="138" width="300" height="16" fill="url(#strapGrad)" stroke="#15151f" stroke-width="3"/>
+                    <rect x="184" y="14" width="12" height="198" fill="url(#strapGrad)" opacity="0.85"/>
+
+                    <rect x="56" y="92" width="268" height="92" rx="4" fill="#0c1812" stroke="#1a0a10" stroke-width="5"/>
+                    <rect x="64" y="100" width="252" height="76" rx="2" fill="url(#screenGlow)"/>
+                    <rect x="64" y="100" width="252" height="76" rx="2" fill="none" stroke="#13321f" stroke-width="2"/>
+
+                    <text x="190" y="148" text-anchor="middle" class="bomb-digital-time" id="bomb-time-text">00 00:00:00</text>
+
+                    <circle cx="74" cy="106" r="3" fill="#3fe06f" opacity="0.8"/>
+                    <circle cx="306" cy="170" r="3" fill="#3fe06f" opacity="0.8"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Elemen status disembunyikan dari tampilan, tetap ada agar script.js (yang menulis pesan status & progress) tidak error -->
+        <div id="status-message" class="status-message" hidden></div>
+        <div id="progress-fill" hidden></div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2: HAPPY BIRTHDAY (amplop + galeri, muncul setelah timer)
+         ============================================================ -->
+    <section id="birthday-section" class="screen">
+        <canvas id="matrixCanvas"></canvas>
+        <canvas id="starsCanvas"></canvas>
+
+        <div id="ui-layer">
+            <div id="intro-text"></div>
+
+            <div id="envelope-container" onclick="openEnvelope()">
+                <div id="envelope">💌</div>
+                <div class="tap-text">Ketuk untuk membuka</div>
+            </div>
+
+            <div id="gallery-container" onclick="nextPhoto()">
+                <img id="gallery-image" src="" alt="Foto">
+                <div id="gallery-caption">Teks Caption</div>
+            </div>
+        </div>
+
+        <div id="modal-container" onclick="closeModal()">
+            <img id="modal-image" src="" alt="Foto Besar">
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
